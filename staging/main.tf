@@ -7,8 +7,6 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "thecloudprofessional-devops-cicd"
-    key    = "iac/terraform.tfstate"
     region = "ca-central-1"
   }
 }
@@ -46,7 +44,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 module "vpc" {
-  source = "./modules/vpc"
+  source = "../modules/vpc"
 
   iac_tool    = var.iac_tool
   project     = var.project
@@ -54,7 +52,7 @@ module "vpc" {
 }
 
 module "ec2_jenkins_server" {
-  source = "./modules/ec2"
+  source = "../modules/ec2"
 
   iac_tool           = var.iac_tool
   project            = var.project
