@@ -16,9 +16,8 @@ provider "aws" {
   region  = "ca-central-1"
 }
 
-data "aws_ami" "amazon_linux" {
+data "aws_ami" "jenkins" {
   most_recent = true
-  name_regex  = "amzn2-ami-kernel-5.10*"
 
   filter {
     name   = "state"
@@ -26,21 +25,21 @@ data "aws_ami" "amazon_linux" {
   }
 
   filter {
-    name   = "architecture"
-    values = ["x86_64"]
+    name   = "tag:Component"
+    values = ["jenkins"]
   }
 
   filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+    name   = "tag:Project"
+    values = [var.project]
   }
 
   filter {
-    name   = "block-device-mapping.volume-type"
-    values = ["gp2"]
+    name   = "tag:Environment"
+    values = [var.environment]
   }
 
-  owners = ["amazon"]
+  owners = ["self"]
 }
 
 module "vpc" {
@@ -57,7 +56,7 @@ module "ec2_jenkins_server" {
   iac_tool           = var.iac_tool
   project            = var.project
   environment        = var.environment
-  instance_ami       = data.aws_ami.amazon_linux.id
+  instance_ami       = data.aws_ami.jenkins.id
   subnet_id          = module.vpc.vpc_public_subnet_id
   security_group_ids = [module.vpc.security_group_jenkins_server]
   role               = "jenkins_server"
