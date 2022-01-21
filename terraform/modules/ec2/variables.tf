@@ -14,7 +14,7 @@ variable "environment" {
 }
 
 variable "instance_ami" {
-  type = string
+  type        = string
   description = "Server image to use"
 }
 
@@ -25,17 +25,17 @@ variable "instance_type" {
 }
 
 variable "subnet_id" {
-  type = string
+  type        = string
   description = "Subnet ID to assign to server"
 }
 
 variable "security_group_ids" {
-  type = list(string)
+  type        = list(string)
   description = "Security groups to assign to server"
-  default = []
+  default     = []
 }
 
 variable "role" {
-  type = string
+  type        = string
   description = "Server purpose"
 }

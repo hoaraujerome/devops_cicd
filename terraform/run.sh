@@ -11,7 +11,7 @@ if [ $# -gt 0 ]; then
     if [ "$2" == "init" ]; then
       terraform -chdir=./$TF_ENV init -backend-config=../backend-$TF_ENV.tf
     elif [ "$2" == "deploy" ]; then
-      terraform -chdir=./$TF_ENV fmt
+      terraform fmt --recursive
       terraform -chdir=./$TF_ENV validate
       terraform -chdir=./$TF_ENV apply
     else
