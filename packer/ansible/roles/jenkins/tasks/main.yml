@@ -1,0 +1,25 @@
+---
+- name: Add Jenkins repository
+  yum_repository:
+    name: jenkins
+    description: Jenkins YUM repo
+    baseurl: https://pkg.jenkins.io/redhat-stable
+    gpgkey: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+- name: Install epel via amazon-linux-extras packages
+  shell: "amazon-linux-extras install epel -y"
+
+- name: Install Java 11 via amazon-linux-extras packages
+  shell: "amazon-linux-extras install java-openjdk11 -y"
+
+- name: Install Jenkins
+  yum:
+    name: jenkins
+    state: present
+    update_cache: true
+
+- name: Enable and Start the Jenkins Service
+  service:
+    name: jenkins
+    state: started
+    enabled: yes
