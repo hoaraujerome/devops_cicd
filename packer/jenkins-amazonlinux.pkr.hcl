@@ -55,8 +55,8 @@ source "amazon-ebs" "amazonlinux" {
   }
 
   # No default VPC for the user. Workaround: specify manually temporary vpc & subnet .
-  vpc_id    = "vpc-0f23c165e19eae9a0"
-  subnet_id = "subnet-0781c61a14b0d7ac5"
+  vpc_id    = "vpc-01f5359e01814325f"
+  subnet_id = "subnet-0c5f933ebdc65635a"
 }
 
 build {
