@@ -55,8 +55,8 @@ source "amazon-ebs" "amazonlinux" {
   }
 
   # No default VPC for the user. Workaround: specify manually temporary vpc & subnet .
-  vpc_id    = "vpc-01f5359e01814325f"
-  subnet_id = "subnet-0c5f933ebdc65635a"
+  vpc_id    = "vpc-06f0c27176790930e"
+  subnet_id = "subnet-07f33378e771f7b7d"
 }
 
 build {
@@ -70,7 +70,7 @@ build {
 
   provisioner "ansible-local" {
     playbook_file = "${path.root}/ansible/playbook.yml"
-    # extra_arguments = ["--extra-vars", "\"pizza_toppings=${var.topping}\""]
+    # extra_arguments = ["-vvv"]
     role_paths = [
       "ansible/roles/jenkins"
     ]
