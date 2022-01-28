@@ -1,0 +1,9 @@
+terraform_version: 1.1.4
+
+terraform_dir: /opt/terraform
+
+terraform_user: terraform
+
+# Generated with % ansible all -i localhost, -m debug -a "msg={{ 'terraform' | password_hash('sha512') }}"
+terraform_user_password: $6$DHUoEpje5M4axsFs$M9KwyWOW2JsFnx/5AGrcZ0cR0boWHJ4s9m59TMArl0cRaOxByJ0eCkqojVhVgF6fWNMj7jeeyM1y8Em14QJOc0
+

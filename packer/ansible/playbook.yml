@@ -1,5 +1,14 @@
----
-- hosts: all
+- name: Install Terraform
+  hosts: all
+  user: ec2-user
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - terraform
+
+- name: Install Jenkins
+  hosts: all
   user: ec2-user
   become: yes
   become_user: root

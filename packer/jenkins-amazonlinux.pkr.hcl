@@ -27,6 +27,16 @@ variable "region" {
   default = "ca-central-1"
 }
 
+variable "jenkins_user_aws_access_key_id" {
+  sensitive = true
+  type      = string
+}
+
+variable "jenkins_user_aws_secret_access_key" {
+  sensitive = true
+  type      = string
+}
+
 variable "component" {
   type    = string
   default = "jenkins"
@@ -37,6 +47,7 @@ source "amazon-ebs" "amazonlinux" {
   instance_type = "${var.instance_type}"
   region        = "${var.region}"
   ssh_username  = "ec2-user"
+  profile       = "devops_cicd"
 
   source_ami_filter {
     filters = {
@@ -69,10 +80,12 @@ build {
   }
 
   provisioner "ansible-local" {
-    playbook_file = "${path.root}/ansible/playbook.yml"
+    playbook_file   = "${path.root}/ansible/playbook.yml"
+    extra_arguments = ["--extra-vars", "\"jenkins_user_aws_access_key_id=${var.jenkins_user_aws_access_key_id} jenkins_user_aws_secret_access_key=${var.jenkins_user_aws_secret_access_key}\""]
     # extra_arguments = ["-vvv"]
     role_paths = [
-      "ansible/roles/jenkins"
+      "ansible/roles/terraform",
+      "ansible/roles/jenkins",
     ]
   }
 }

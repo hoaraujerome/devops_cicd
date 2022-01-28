@@ -63,7 +63,7 @@
     state: started
     enabled: yes
 
-- name: Wait for Jenkins to start up before proceeding
+- name: Wait for Jenkins - CLI Endpoint - to start up before proceeding
   uri:
     url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/cli/"
     method: GET
@@ -155,21 +155,41 @@
     name: jenkins
     state: restarted
 
-- name: Wait for Jenkins to start up before proceeding
+- name: Wait for Jenkins - CreateCredentials Endpoint - to start up before proceeding
   uri:
-    url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/cli/"
+    url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/credentials/store/system/domain/_/createCredentials"
     method: GET
-    return_content: "yes"
     timeout: 5
     body_format: raw
     follow_redirects: "no"
-    status_code: 200,403
+    status_code: 405
   register: result
-  until: (result.status == 403 or result.status == 200) and (result.content.find("Please wait while") == -1)
+  until: (result.status == 405)
   retries: "{{ jenkins_connection_retries }}"
   delay: "{{ jenkins_connection_delay }}"
   changed_when: false
   check_mode: false
+
+- name: Create AWS Credentials
+  uri:
+    method: POST
+    url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/credentials/store/system/domain/_/createCredentials"
+    user: "{{ jenkins_admin_username }}"
+    password: "{{ jenkins_admin_password }}"
+    status_code: [302]
+    force_basic_auth: yes
+    body: |
+      json={
+        "": "0",
+        "credentials": {
+          "scope": "GLOBAL",
+          "id": "devops_jenkins",
+          "accessKey": "{{ jenkins_user_aws_access_key_id }}",
+          "secretKey": "{{ jenkins_user_aws_secret_access_key|urlencode }}",
+          "$class": "com.cloudbees.jenkins.plugins.awscredentials.AWSCredentialsImpl"
+        }
+      }  
+  when: jenkins_admin_password | default(false)
 
 - name: Create Jenkins Job
   jenkins_job:

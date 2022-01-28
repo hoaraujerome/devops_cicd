@@ -12,7 +12,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
+  profile = "devops_cicd"
   region  = "ca-central-1"
 }
 
