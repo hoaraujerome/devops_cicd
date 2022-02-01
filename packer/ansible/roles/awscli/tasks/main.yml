@@ -1,0 +1,15 @@
+- name: Download awscliv2 installer
+  unarchive:
+    src: "{{ awscli_download_url }}"
+    dest: "{{ temp_dir }}"
+    remote_src: true
+    creates: "{{ temp_dir }}/aws"
+    mode: 0755
+
+- name: Run the installer
+  command:
+  args:
+    cmd: "{{ temp_dir }}/aws/install"
+    creates: /usr/local/bin/aws
+  become: true
+

@@ -1,0 +1,17 @@
+- name: Install Docker
+  yum:
+    name: docker
+    state: present
+    update_cache: true
+
+- name: Add jenkins user to "docker" group
+  user:
+    name: "jenkins"
+    groups: "docker"
+    append: true
+
+- name: Enable and Start the Docker Service
+  service:
+    name: docker
+    state: started
+    enabled: yes

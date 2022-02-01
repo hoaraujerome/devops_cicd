@@ -66,8 +66,8 @@ source "amazon-ebs" "amazonlinux" {
   }
 
   # No default VPC for the user. Workaround: specify manually temporary vpc & subnet.
-  #vpc_id    = ""
-  #subnet_id = ""
+  vpc_id    = "vpc-0f400b1e1a169d826"
+  subnet_id = "subnet-0045bfdc2e51ccf02"
 }
 
 build {
@@ -86,6 +86,8 @@ build {
     role_paths = [
       "ansible/roles/terraform",
       "ansible/roles/jenkins",
+      "ansible/roles/docker",
+      "ansible/roles/awscli",
     ]
   }
 }
