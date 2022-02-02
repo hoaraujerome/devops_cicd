@@ -1,5 +1,5 @@
 resource "aws_security_group" "jenkins_server" {
-  name        = "${var.project}-jenkins_server-sg"
+  name        = "${var.project}-${var.environment}-jenkins_server-sg"
   description = "Security Group For Jenkins Server"
   vpc_id      = aws_vpc.vpc.id
 
