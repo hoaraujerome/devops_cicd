@@ -1,4 +1,4 @@
-# Jenkins server on EC2 instance provisioned by Terraform with Packer and Ansible (DEVOPS Portfolio Project)
+# Jenkins server on EC2 instance provisioned by Terraform with Packer and Ansible
 
 ## Packer
 ![Packer](/misc/devops_cicd-Packer.jpg)
