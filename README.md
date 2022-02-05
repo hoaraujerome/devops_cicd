@@ -16,10 +16,24 @@ Stack:
 Overview:
 ![Overview](/misc/devops_cicd-Deployment.jpg)
 
-## Module #1: Jenkins server on AWS EC2 instance with Packer and Ansible provisioned by Terraform
+## Part #1: Jenkins server on AWS EC2 instance with Packer and Ansible provisioned by Terraform
 
-## Packer
+### Packer
+
 ![Packer](/misc/devops_cicd-Packer.jpg)
 
-## Terraform
+#### Prerequisites:
+* AWS CLI profile named **devops_cicd** (see "profile" in the [packer configuration](/packer/jenkins-amazonlinux.pkr.hcl)). Permissions needed: S3, VPC, and EC2.
+* If the user **devops_cicd** has no default vpc, set a VPC and subnet IDs manually in the [packer configuration](/packer/jenkins-amazonlinux.pkr.hcl). 
+
+#### Usage
+```
+./packer/build.sh <jenkins_user_aws_access_key_id> <jenkins_user_aws_secret_access_key>
+```
+
+
+### Terraform
 ![Terraform](/misc/devops_cicd-Terraform.jpg)
+
+Prerequisite
+* s3
