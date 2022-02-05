@@ -2,6 +2,9 @@
 ## Goal
 Deploy a containerized API into a staging environment in a public cloud **automatically** whenever new commits are integrated into the main branch.
 
+Overview:
+![Overview](/misc/devops_cicd-Deployment.jpg)
+
 Stack:
 * Cloud Platform: AWS
 * Code Hosting Platform: GitHub
@@ -12,9 +15,6 @@ Stack:
 * Container Build Tool: Docker
 * API: Express.js
 * Staging Environment: ECS Fargate with ALB and application auto-scaling
-
-Overview:
-![Overview](/misc/devops_cicd-Deployment.jpg)
 
 ## Module #1: Jenkins server on AWS EC2 instance with Packer and Ansible provisioned by Terraform
 
