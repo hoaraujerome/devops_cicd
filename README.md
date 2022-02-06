@@ -24,14 +24,14 @@ Overview:
 
 #### Image Content
 * Amazon Linux 2 AMI (HVM)
-* Ansible2
+* Ansible
 * Terraform
 * Jenkins with plugins ("GIT", "Pipeline", and "Pipeline: AWS Steps") + AWS Credentials + 1 Jenkins Job for the [API](https://github.com/thecloudprofessional/devops_demoapp)
 * Docker
 * AWS CLI
 
 #### Prerequisites
-* AWS CLI profile named **devops_cicd** (see "profile" in the [packer configuration](/packer/jenkins-amazonlinux.pkr.hcl)). Permissions needed: S3, VPC, and EC2.
+* AWS CLI profile named **devops_cicd** (see "profile" in the [packer configuration](/packer/jenkins-amazonlinux.pkr.hcl)). Permission needed: EC2.
 * If the user **devops_cicd** has no default vpc, set a VPC and subnet IDs manually in the [packer configuration](/packer/jenkins-amazonlinux.pkr.hcl). 
 
 #### Usage
@@ -40,8 +40,15 @@ Overview:
 ```
 Note: the access key will be replaced by an IAM role [soon](https://github.com/thecloudprofessional/devops_cicd/issues/1)
 
-### b) Deploy a Jenkins server with Terraform
+### b) Deploy a Jenkins server on AWS with Terraform
 ![Terraform](/misc/devops_cicd-Terraform.jpg)
 
 #### Prerequisites
-* S3 bucket
+* S3 bucket to store the Terraform state (see "bucket" in the [staging configuration](/terraform/backend-staging.tf)).
+* AWS CLI profile named **devops_cicd** (see "profile" in the [terraform configuration](/terraform/staging/main.tf)). Permissions needed: S3, VPC, and EC2.
+
+#### Usage
+```
+./terraform/run.sh staging init
+./terraform/run.sh staging deploy
+```
