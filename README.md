@@ -11,7 +11,8 @@ Stack:
 * Image Management Tool: Packer 
 * Container Build Tool: Docker
 * API: Express.js
-* Staging Environment: ECS Fargate with ALB and application auto-scaling
+* Staging Environment for Jenkins: EC2 instance
+* Staging Environment for API: ECS Fargate with ALB and application auto-scaling
 
 Overview:
 ![Overview](/misc/devops_cicd-Overview.jpg)
@@ -52,3 +53,6 @@ Note: the access key will be replaced by an IAM role [soon](https://github.com/t
 ./terraform/run.sh staging init
 ./terraform/run.sh staging deploy
 ```
+
+## Part 2: Deploy the API with Jenkins Pipeline
+See the repository [devops_demoapp](https://github.com/thecloudprofessional/devops_demoapp).
