@@ -54,5 +54,5 @@ Note: the access key will be replaced by an IAM role [soon](https://github.com/t
 ./terraform/run.sh staging deploy
 ```
 
-## Part 2: Deploy the API with Jenkins Pipeline
+## Part 2: Containerized API deployment with Jenkins Pipeline
 See the repository [devops_demoapp](https://github.com/thecloudprofessional/devops_demoapp).
